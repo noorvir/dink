@@ -18,7 +18,7 @@ builds:
 
 brews:
   - tap:
-      owner: dink
+      owner: noorvir
       name: homebrew-dink
     commit_author:
       name: goreleaserbot
