@@ -8,11 +8,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func listMarkdownFiles(dir string) []string {
+func listMarkdownFiles(dir string) ([]string, error) {
 	var updateList []string
 
 	// Recursively list all the markdown files in the given path
-	if err := filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+	err := filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -23,11 +23,12 @@ func listMarkdownFiles(dir string) []string {
 			updateList = append(updateList, path)
 		}
 		return nil
-	}); err != nil {
-		return nil
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to walk directory: %v", err)
 	}
 
-	return updateList
+	return updateList, nil
 }
 
 // UpdateCmd updates the snapshot of the mapping from docs and their dependencies.
@@ -39,6 +40,24 @@ func UpdateCmd(cmd *cobra.Command, args []string) error {
 	// follow each path in updateList and hash the contents
 	// save a map of the file paths to the contents hash
 
-	fmt.Println(listMarkdownFiles("testdata"))
+	paths, err := listMarkdownFiles("testdata")
+	if err != nil {
+		return fmt.Errorf("failed to list files: %v", err)
+	}
+
+	sfm := SyncedFilesMap{}
+
+	for _, path := range paths {
+		dinkBlocks, e := parseFile(path)
+		if e != nil {
+			return fmt.Errorf("failed to parse file: %v", e)
+		}
+		if len(dinkBlocks) > 0 {
+			sfm[path] = dinkBlocks
+		}
+	}
+
+	fmt.Printf("%s\n", sfm)
+
 	return nil
 }
