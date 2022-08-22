@@ -1,0 +1,31 @@
+project_name: dink
+
+before:
+  hooks:
+    - go mod download
+    - go mod tidy
+
+builds:
+  - binary: dink
+    goos:
+      - linux
+      - windows
+      - darwin
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      -w -s -X github.com/noorvir/dink/Version={{.Version}}
+
+brews:
+  - tap:
+      owner: dink
+      name: homebrew-dink
+    commit_author:
+      name: goreleaserbot
+      email: noorvir.aulakh@gmail.com
+
+    description: "Don't think Docs"
+    test: |
+      system "#{bin}/dink"
+    install: |
+      bin.install "dink"
