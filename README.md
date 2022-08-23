@@ -1,10 +1,18 @@
 # Dink Docs
 
-Dink (**D**on't T**hink**) Docs helps you keep your Markdown docs in sync with your code, 
+Dink (**D**on't Th**ink**) Docs helps you keep your Markdown docs in sync with your code, 
 other docs, or basically any folder, file or line inside a file on your computer.
 
 # Use Case
-Let's say you have two services in your shiny new startup. A REST API that lives in the 
+
+## tldr
+Docs and code get out of sync all the time. Dink detects changes in code and prompts you 
+to update docs that depend on it.
+
+
+## Example
+
+Let's say you have two services. A REST API that lives in the 
 `api` directory and React app that lives in the app directory.
 
 ```
