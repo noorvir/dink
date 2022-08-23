@@ -12,8 +12,8 @@ to update docs that depend on it.
 
 ## Example
 
-Let's say you have two services. A REST API that lives in the 
-`api` directory and React app that lives in the app directory.
+Let's say you have two services: a REST API that lives in the `api` directory, and a React 
+app that lives in the `app` directory.
 
 ```
 .
@@ -28,8 +28,8 @@ Let's say you have two services. A REST API that lives in the
 2 directories, 5 files
 ```
 
-You add a `README.md` file to describe in painful detail how to set-up a local dev 
-environment, add TypeScript support etc.
+You add a `README.md` file to describe how to set-up a local dev environment, add 
+TypeScript support, etc.
 
 ```Markdown
 # Toast Delivery App
@@ -37,7 +37,7 @@ environment, add TypeScript support etc.
 ## Setting up a local development environment
 
 ### Server
-Change into the api directory and start the API server:
+Change into the `api` directory and start the API server:
 
 `yarn install && yarn dev`
 
@@ -48,12 +48,12 @@ In a separate terminal, change into the `app` directory and start the React app:
 `yarn install && yarn dev`
 ```
 
-Two months later, you decide to rename the `app` directory to `dashboard` because that's 
-what everyone else is doing. You find and replace all the usages of `app` with `dashboard`
-in your code which is great but now, suddenly your docs are out of sync.
+Two months later, you decide to rename the `app` directory to `dashboard` _cuz that's kool now_. 
+You find and replace all the usages of `app` with `dashboard` in your code. That's great but 
+you forgot about the docs, which are now silently out of date.
 
-This is a contrived example but something like this happens surprisingly often. Dink helps
-solve this by letting you link which docs link what code.
+Something like this happens surprisingly often. Dink helps solve this by letting you establish 
+dependencies between docs and code with a one line Markdown comment.
 
 
 # How it works
@@ -67,7 +67,7 @@ Block_ around the Markdown code you want to keep in sync.
 In a separate terminal, change into the `dashboard` directory and start the React app:
 
 `yarn install && yarn dev`
-[//]: # (!#donk)
 ```
 
-
+If you now make any changes to the `main.go` file, Dink will prompt about the potentially 
+out of date block of Markdown above.
